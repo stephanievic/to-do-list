@@ -7,7 +7,8 @@ const editForm = document.querySelector ("#edit-form");
 const editInput = document.querySelector ("#edit-input");
 const cancelEditBtn = document.querySelector ("#cancel-edit-btn");
 const filter = document.querySelector ("#filter-select");
-const searchInput = document.querySelector("#search-input")
+const searchInput = document.querySelector("#search-input");
+const eraseSearchBtn = document.querySelector("#erase-button");
 
 let oldInputValue;
 
@@ -87,8 +88,6 @@ const search = (searchContent) => {
     todos.forEach((todo) => {
         const todoTitle = document.querySelector("h3").innerText;
 
-        console.log (todoTitle);
-
         todo.style.display = "flex";
 
         if (!todoTitle.includes(searchContent)){
@@ -155,10 +154,17 @@ filter.addEventListener("change", (e) => {
     const filterValue = e.target.value;
 
     filterTodo(filterValue);
-})
+});
 
 searchInput.addEventListener("keyup", (e) => {
     const searchContent = e.target.value;
 
     search(searchContent);
+});
+
+eraseSearchBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    searchInput.value = "";
+    searchInput.dispatchEvent(new Event("keyup"));
 })
