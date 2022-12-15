@@ -6,6 +6,8 @@ const todoList = document.querySelector ("#todo-list");
 const editForm = document.querySelector ("#edit-form");
 const editInput = document.querySelector ("#edit-input");
 const cancelEditBtn = document.querySelector ("#cancel-edit-btn");
+const filter = document.querySelector ("#filter-select");
+const searchInput = document.querySelector("#search-input")
 
 let oldInputValue;
 
@@ -43,7 +45,7 @@ const toggleForms = () => {
     editForm.classList.toggle("hide");
     todoForm.classList.toggle("hide");
     todoList.classList.toggle("hide");
-}
+};
 
 const updateTodo = (text) => {
     const todos = document.querySelectorAll(".todo");
@@ -55,6 +57,44 @@ const updateTodo = (text) => {
             todoTitle.innerText = text;
         }
     })
+};
+
+const filterTodo = (filterValue) => {
+    const todos = document.querySelectorAll(".todo");
+
+    switch (filterValue) {
+        case "all":
+            todos.forEach(todo => todo.style.display = "flex");
+        break;
+        
+        case "done":
+            todos.forEach(todo => {
+                todo.classList.contains("done") ? todo.style.display = "flex" : todo.style.display = "none";
+            });
+        break;
+
+        case "todo":
+            todos.forEach(todo => {
+                !todo.classList.contains("done") ? todo.style.display = "flex" : todo.style.display = "none";
+            });
+        break;
+    }
+};
+
+const search = (searchContent) => {
+    const todos = document.querySelectorAll(".todo");
+
+    todos.forEach((todo) => {
+        const todoTitle = document.querySelector("h3").innerText;
+
+        console.log (todoTitle);
+
+        todo.style.display = "flex";
+
+        if (!todoTitle.includes(searchContent)){
+            todo.style.display = "none";
+        }
+    });
 }
 
 // Eventos
@@ -109,4 +149,16 @@ editForm.addEventListener("submit", (e) => {
     }
 
     toggleForms();
+});
+
+filter.addEventListener("change", (e) => {
+    const filterValue = e.target.value;
+
+    filterTodo(filterValue);
+})
+
+searchInput.addEventListener("keyup", (e) => {
+    const searchContent = e.target.value;
+
+    search(searchContent);
 })
