@@ -1,4 +1,4 @@
-## to-do list com front-end
+## To-do list com front-end
 
 To-do list feita como projeto de estudo, instruída por Matheus Battisti em seu canal no YouTube.
 
